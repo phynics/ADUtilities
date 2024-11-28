@@ -39,7 +39,7 @@ extension Binding {
             }
         }
     }
-    
+
     public func map<TargetType>(_ keyPath: WritableKeyPath<Value, TargetType>) -> Binding<TargetType> {
         .init {
             wrappedValue[keyPath: keyPath]
