@@ -4,13 +4,16 @@ public extension LocalizedStringKey {
     var stringKey: String {
         let description = "\(self)"
 
-        let components = description.components(separatedBy: "key: \"")
-            .map { $0.components(separatedBy: "\",")}
-        return components[1][0]
+        guard let keyStart = description.range(of: "key: \"")?.upperBound,
+              let keyEnd = description[keyStart...].range(of: "\",")?.lowerBound else {
+            return description
+        }
+
+        return String(description[keyStart..<keyEnd])
     }
 
     var localizedString: String {
-        let language = Locale.current.languageCode
+        let language = Locale.current.language.languageCode?.identifier
         let path = Bundle.main.path(forResource: language, ofType: "lproj") ?? ""
         if let bundle = Bundle(path: path) {
             return NSLocalizedString(self.stringKey, bundle: bundle, comment: "\(self.stringKey)") as String

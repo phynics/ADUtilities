@@ -1,6 +1,6 @@
 extension Array {
     public subscript(safely index: Index) -> Element? {
-        guard endIndex >= index else { return nil }
+        guard indices.contains(index) else { return nil }
         return self[index]
     }
 }

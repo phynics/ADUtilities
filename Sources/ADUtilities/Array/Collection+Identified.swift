@@ -1,5 +1,5 @@
-public extension Collection where Element: Identifiable {
-    subscript(identity identity: Element.ID) -> Element? {
+extension Collection where Element: Identifiable {
+    public subscript(identity identity: Element.ID) -> Element? {
         get {
             guard let index = firstIndex(where: { $0.id == identity }) else { return nil }
             return self[index]
@@ -7,9 +7,9 @@ public extension Collection where Element: Identifiable {
     }
 }
 
-public extension Collection where Element: Equatable {
-    func contains(equatableElement: Element) -> Bool {
-        if let index = firstIndex(where: { $0 == equatableElement }) {
+extension Collection where Element: Equatable {
+    public func contains(equatableElement: Element) -> Bool {
+        if firstIndex(where: { $0 == equatableElement }) != nil {
             return true
         } else {
             return false
@@ -17,8 +17,8 @@ public extension Collection where Element: Equatable {
     }
 }
 
-public extension Array where Element: Identifiable {
-    subscript(identity identity: Element.ID) -> Element? {
+extension Array where Element: Identifiable {
+    public subscript(identity identity: Element.ID) -> Element? {
         get {
             guard let index = firstIndex(where: { $0.id == identity }) else { return nil }
             return self[index]
@@ -27,17 +27,17 @@ public extension Array where Element: Identifiable {
             guard let newValue else {
                 return
             }
-            guard let index = firstIndex(where: { $0.id == identity }) else {
+            if let index = firstIndex(where: { $0.id == identity }) {
+                self[index] = newValue
+            } else {
                 self.append(newValue)
-                return
             }
-            self[identity: identity] = newValue
         }
     }
 }
 
-public extension Array where Element: Equatable {
-    mutating func remove(equatableElement: Element) {
+extension Array where Element: Equatable {
+    public mutating func remove(equatableElement: Element) {
         if let index = firstIndex(where: { $0 == equatableElement }) {
             self.remove(at: index)
         }
