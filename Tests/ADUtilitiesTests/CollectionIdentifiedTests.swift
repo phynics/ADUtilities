@@ -1,8 +1,8 @@
-import XCTest
+import Testing
 
 @testable import ADUtilities
 
-final class CollectionIdentifiedTests: XCTestCase {
+struct CollectionIdentifiedTests {
 
     struct Item: Identifiable, Equatable {
         let id: Int
@@ -11,53 +11,53 @@ final class CollectionIdentifiedTests: XCTestCase {
 
     // MARK: - Collection Subscript (Identity)
 
-    func testCollectionSubscriptIdentity_withExistingID_returnsElement() {
+    @Test func testCollectionSubscriptIdentity_withExistingID_returnsElement() {
         let items = [Item(id: 1, value: "A"), Item(id: 2, value: "B")]
-        XCTAssertEqual(items[identity: 1]?.value, "A")
+        #expect(items[identity: 1]?.value == "A")
     }
 
-    func testCollectionSubscriptIdentity_withNonExistingID_returnsNil() {
+    @Test func testCollectionSubscriptIdentity_withNonExistingID_returnsNil() {
         let items = [Item(id: 1, value: "A")]
-        XCTAssertNil(items[identity: 999])
+        #expect(items[identity: 999] == nil)
     }
 
     // MARK: - Collection Contains Equatable
 
-    func testCollectionContains_withExistingItem_returnsTrue() {
+    @Test func testCollectionContains_withExistingItem_returnsTrue() {
         let items = [Item(id: 1, value: "A"), Item(id: 2, value: "B")]
-        XCTAssertTrue(items.contains(equatableElement: Item(id: 1, value: "A")))
+        #expect(items.contains(equatableElement: Item(id: 1, value: "A")))
     }
 
-    func testCollectionContains_withNonExistingItem_returnsFalse() {
+    @Test func testCollectionContains_withNonExistingItem_returnsFalse() {
         let items = [Item(id: 1, value: "A")]
-        XCTAssertFalse(items.contains(equatableElement: Item(id: 1, value: "B")))
+        #expect(!items.contains(equatableElement: Item(id: 1, value: "B")))
     }
 
     // MARK: - Array Subscript (Identity) Get/Set
 
-    func testArraySubscriptIdentity_get_returnsElement() {
+    @Test func testArraySubscriptIdentity_get_returnsElement() {
         let items = [Item(id: 1, value: "A")]
-        XCTAssertEqual(items[identity: 1]?.value, "A")
+        #expect(items[identity: 1]?.value == "A")
     }
 
-    func testArraySubscriptIdentity_set_replacesElement() {
+    @Test func testArraySubscriptIdentity_set_replacesElement() {
         var items = [Item(id: 1, value: "A"), Item(id: 2, value: "B")]
         items[identity: 1] = Item(id: 1, value: "NewA")
 
-        XCTAssertEqual(items.count, 2)
-        XCTAssertEqual(items[0].value, "NewA")
+        #expect(items.count == 2)
+        #expect(items[0].value == "NewA")
     }
 
-    func testArraySubscriptIdentity_set_appendsNewElement() {
+    @Test func testArraySubscriptIdentity_set_appendsNewElement() {
         var items = [Item(id: 1, value: "A")]
         items[identity: 2] = Item(id: 2, value: "B")
 
-        XCTAssertEqual(items.count, 2)
-        XCTAssertEqual(items[1].value, "B")
-        XCTAssertEqual(items[1].id, 2)
+        #expect(items.count == 2)
+        #expect(items[1].value == "B")
+        #expect(items[1].id == 2)
     }
 
-    func testArraySubscriptIdentity_setNil_doesNothing() {
+    @Test func testArraySubscriptIdentity_setNil_doesNothing() {
         var items = [Item(id: 1, value: "A")]
         // The implementation guard let newValue else { return } prevents deletion or update if nil is assigned
         // Wait, the subscript doesn't have an optional setter value?
@@ -67,22 +67,22 @@ final class CollectionIdentifiedTests: XCTestCase {
         // So assigning nil does nothing. It doesn't remove the element.
 
         items[identity: 1] = nil
-        XCTAssertEqual(items.count, 1)
-        XCTAssertEqual(items[0].value, "A")
+        #expect(items.count == 1)
+        #expect(items[0].value == "A")
     }
 
     // MARK: - Array Remove Equatable
 
-    func testArrayRemoveEquatable_withExistingItem_removesItem() {
+    @Test func testArrayRemoveEquatable_withExistingItem_removesItem() {
         var items = [Item(id: 1, value: "A"), Item(id: 2, value: "B")]
         items.remove(equatableElement: Item(id: 1, value: "A"))
-        XCTAssertEqual(items.count, 1)
-        XCTAssertEqual(items[0].value, "B")
+        #expect(items.count == 1)
+        #expect(items[0].value == "B")
     }
 
-    func testArrayRemoveEquatable_withNonExistingItem_doesNothing() {
+    @Test func testArrayRemoveEquatable_withNonExistingItem_doesNothing() {
         var items = [Item(id: 1, value: "A")]
         items.remove(equatableElement: Item(id: 2, value: "B"))
-        XCTAssertEqual(items.count, 1)
+        #expect(items.count == 1)
     }
 }

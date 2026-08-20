@@ -1,12 +1,12 @@
-import XCTest
+import Testing
 
 @testable import ADUtilities
 
-final class StringTests: XCTestCase {
+struct StringTests {
 
-    func testLoremIpsum_returnsNonEmptyString() {
+    @Test func testLoremIpsum_returnsNonEmptyString() {
         let text = String.loremIpsum
-        XCTAssertFalse(text.isEmpty)
-        XCTAssertTrue(text.contains("Lorem ipsum"))
+        #expect(!text.isEmpty)
+        #expect(text.contains("Lorem ipsum"))
     }
 }

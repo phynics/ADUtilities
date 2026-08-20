@@ -1,14 +1,14 @@
 import SwiftUI
-import XCTest
+import Testing
 
 @testable import ADUtilities
 
-final class LocalizedStringKeyTests: XCTestCase {
-    func testStringKey_withPlainKeyReturnsKey() {
-        XCTAssertEqual(LocalizedStringKey("hello").stringKey, "hello")
+struct LocalizedStringKeyTests {
+    @Test func testStringKey_withPlainKeyReturnsKey() {
+        #expect(LocalizedStringKey("hello").stringKey == "hello")
     }
 
-    func testStringKey_withInterpolatedKeyReturnsFormatKey() {
-        XCTAssertEqual(LocalizedStringKey("count \(1)").stringKey, "count %lld")
+    @Test func testStringKey_withInterpolatedKeyReturnsFormatKey() {
+        #expect(LocalizedStringKey("count \(1)").stringKey == "count %lld")
     }
 }

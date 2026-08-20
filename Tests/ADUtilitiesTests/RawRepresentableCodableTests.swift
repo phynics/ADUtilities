@@ -1,8 +1,9 @@
-import XCTest
+import Foundation
+import Testing
 
 @testable import ADUtilities
 
-final class RawRepresentableCodableTests: XCTestCase {
+struct RawRepresentableCodableTests {
 
     enum TestEnum: String, Codable {
         case case1 = "case1"
@@ -34,37 +35,41 @@ final class RawRepresentableCodableTests: XCTestCase {
     // This looks like it forces the enum to be encoded as an array of one string `["case1"]` instead of just `"case1"`.
     // Let's verify this behavior.
 
-    func testEncode_encodesAsArray() throws {
+    @Test func testEncode_encodesAsArray() throws {
         let value = TestEnum.case1
         let encoder = JSONEncoder()
         let data = try encoder.encode(value)
         let jsonString = String(data: data, encoding: .utf8)
 
-        XCTAssertEqual(jsonString, "[\"case1\"]")
+        #expect(jsonString == "[\"case1\"]")
     }
 
-    func testDecode_decodesFromArray() throws {
+    @Test func testDecode_decodesFromArray() throws {
         let json = "[\"case2\"]"
         let data = json.data(using: .utf8)!
         let decoder = JSONDecoder()
         let value = try decoder.decode(TestEnum.self, from: data)
 
-        XCTAssertEqual(value, .case2)
+        #expect(value == .case2)
     }
 
-    func testDecode_decodesFromSingleString_fails() {
+    @Test func testDecode_decodesFromSingleString_fails() {
         let json = "\"case1\""
         let data = json.data(using: .utf8)!
         let decoder = JSONDecoder()
 
-        XCTAssertThrowsError(try decoder.decode(TestEnum.self, from: data))
+        #expect(throws: (any Error).self) {
+            try decoder.decode(TestEnum.self, from: data)
+        }
     }
 
-    func testDecode_withUnknownRawValueThrows() {
+    @Test func testDecode_withUnknownRawValueThrows() {
         let json = "[\"case3\"]"
         let data = json.data(using: .utf8)!
         let decoder = JSONDecoder()
 
-        XCTAssertThrowsError(try decoder.decode(TestEnum.self, from: data))
+        #expect(throws: (any Error).self) {
+            try decoder.decode(TestEnum.self, from: data)
+        }
     }
 }
