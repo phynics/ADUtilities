@@ -1,3 +1,4 @@
+#if canImport(SwiftUI)
 import SwiftUI
 
 public struct DismissButton: View {
@@ -11,3 +12,4 @@ public struct DismissButton: View {
         }
     }
 }
+#endif

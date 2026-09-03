@@ -1,3 +1,4 @@
+#if canImport(SwiftUI)
 import SwiftUI
 
 public extension LocalizedStringKey {
@@ -23,3 +24,4 @@ public extension LocalizedStringKey {
     }
 
 }
+#endif

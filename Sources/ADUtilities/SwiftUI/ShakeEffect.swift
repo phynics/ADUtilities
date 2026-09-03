@@ -1,3 +1,4 @@
+#if canImport(SwiftUI)
 import SwiftUI
 
 public struct ShakeEffect: GeometryEffect {
@@ -17,3 +18,4 @@ public struct ShakeEffect: GeometryEffect {
             y: 0))
     }
 }
+#endif

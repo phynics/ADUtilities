@@ -1,3 +1,4 @@
+#if canImport(SwiftUI)
 import SwiftUI
 
 public struct TextEditorWithPlaceholder: View {
@@ -29,3 +30,4 @@ public struct TextEditorWithPlaceholder: View {
         }
     }
 }
+#endif

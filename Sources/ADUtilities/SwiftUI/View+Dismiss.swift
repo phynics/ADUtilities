@@ -1,3 +1,4 @@
+#if canImport(SwiftUI)
 import SwiftUI
 
 public struct DismissWrapper<Content>: View where Content: View {
@@ -30,3 +31,4 @@ extension View {
         }
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if canImport(SwiftUI)
 import SwiftUI
 
 extension Binding where Value: Equatable {
@@ -48,3 +49,4 @@ extension Binding {
         }
     }
 }
+#endif

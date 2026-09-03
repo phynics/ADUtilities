@@ -1,3 +1,4 @@
+#if canImport(Combine)
 import Combine
 
 @propertyWrapper
@@ -49,3 +50,4 @@ struct NestedObservableObject<Value: ObservableObject> {
         storage = wrappedValue
     }
 }
+#endif
