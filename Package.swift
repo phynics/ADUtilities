@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "ADUtilities",
     platforms: [
-        .iOS(.v16),
-        .macOS(.v14),
+        .iOS(.v26),
+        .macOS(.v26),
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
@@ -24,5 +24,7 @@ let package = Package(
             name: "ADUtilitiesTests",
             dependencies: ["ADUtilities"]
         ),
-    ]
+    ],
+    // Tools 6.4 defaults to Swift 6 mode; 0085 moves this package to it.
+    swiftLanguageModes: [.v5]
 )
