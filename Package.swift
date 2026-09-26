@@ -25,6 +25,5 @@ let package = Package(
             dependencies: ["ADUtilities"]
         ),
     ],
-    // Tools 6.4 defaults to Swift 6 mode; 0085 moves this package to it.
-    swiftLanguageModes: [.v5]
+    swiftLanguageModes: [.v6]
 )
